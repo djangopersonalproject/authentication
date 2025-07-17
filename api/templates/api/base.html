@@ -29,10 +29,19 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> {% endcomment %}
       <div class='gap-x-1'>
-        <button class="btn btn-success">Register</button>
-        <button class="btn btn-primary">Login</button>
-        <button class="btn btn-secondary">Dashboard</button>
-        <button class="btn btn-danger">Logout</button>
+    
+         {% if request.user.is_authenticated %}
+            <div class='d-flex gap-1'>
+              <button class="btn btn-secondary">Dashboard</button>
+              <form method='post' action={% url 'logout' %}>
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Logout</button>
+              </form>
+            </div>
+          {% else %}
+            <button class="btn btn-success">Register</button>
+            <button class="btn btn-primary">Login</button>
+         {% endif %}
       </div>
     </div>
   </div>
